@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #ff4757;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #747d8c;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .volume-note {
+            color: #ff6b81;
+            font-size: 0.85em;
+            margin-bottom: 25px;
+            font-style: italic;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.7; }
+        }
+
+        .message-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-left: 5px solid #ff4757;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: fadeIn 1s forwards;
+            text-align: left;
+            line-height: 1.6;
+            color: #2f3542;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+
+        .cake-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Elemen Audio Tersembunyi -->
+    <audio id="bgMusic" loop>
+        <source src="track.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung pemutaran musik.
+    </audio>
+
+    <div class="container">
+        <div class="cake-icon">🎂</div>
+        <h1>Selamat Ulang Tahun!</h1>
+        <p class="subtitle">Hai, Sayang! Ada pesan khusus nih buat kamu.</p>
+        <p class="volume-note">🔊 (Pastikan volume HP kamu nyala ya!)</p>
+        
+        <button id="openBtn" onclick="bukaPesan()">Buka Pesannya Dong</button>
+
+        <div id="secretMessage" class="message-box">
+            <p><strong>Happy Birthday! 🎉</strong></p>
+            <p>Semoga di umur kamu yang sekarang, semua yang kamu harapkan bisa tercapai. Tetap jadi orang yang baik, makin sabar, dan sehat selalu ya.</p>
+            <p>Makasih udah selalu ada. Have a wonderful day!</p>
+            <p><em>- Dari cowokmu yang paling ganteng</em></p>
+        </div>
+    </div>
+
+    <script>
+        function bukaPesan() {
+            // Menampilkan pesan rahasia
+            var message = document.getElementById("secretMessage");
+            var btn = document.getElementById("openBtn");
+            var volumeNote = document.querySelector(".volume-note");
+            
+            message.style.display = "block";
+            btn.style.display = "none";
+            volumeNote.style.display = "none"; // Sembunyikan tulisan volume setelah diklik
+            
+            // Memutar musik
+            var music = document.getElementById("bgMusic");
+            music.play();
+            
+            // Efek Confetti Sederhana
+            createConfetti();
+        }
+
+        function createConfetti() {
+            for(let i=0; i<30; i++) {
+                let confetti = document.createElement('div');
+                confetti.innerHTML = '✨';
+                confetti.style.position = 'absolute';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-20px';
+                confetti.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                confetti.style.transition = 'top 2s ease-in, opacity 2s';
+                
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.style.top = window.innerHeight + 'px';
+                    confetti.style.opacity = '0';
+                }, 10);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
